@@ -2,7 +2,7 @@
   <div>
     <template>
       <div>
-        <v-toolbar class="bg-grey" prominent>
+        <v-toolbar height="100" class="bg-grey" prominent>
           <svg
             height="100"
             width="200"
@@ -141,7 +141,7 @@ z"
             />
           </svg>
 
-          <v-toolbar-title>Vuetify</v-toolbar-title>
+          <v-btn variant="plain" link to="panier">Panier</v-btn>
 
           <v-spacer></v-spacer>
 
@@ -152,9 +152,14 @@ z"
         </v-toolbar>
       </div>
     </template>
-
-    <!-- Main Content -->
+    <v-container>
+      <h1>Page Client</h1>
+    </v-container>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script setup>
+definePageMeta({
+  layout: "default",
+});
+</script>

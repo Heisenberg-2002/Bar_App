@@ -1,11 +1,5 @@
 <template>
-  <div>
-   
-    <!-- MAIN CONTENT -->
-    <v-main>
-      <slot />
-    </v-main>
-  </div>
+  <div>Page Bar Maker</div>
 </template>
 
 <script lang="ts" setup></script>
