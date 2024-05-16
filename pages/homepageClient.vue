@@ -1,3 +1,14 @@
+import { Cocktail } from "~/model/cocktail";
+
+import { Cocktail } from "~/model/cocktail";
+
+import { Cocktail } from "~/model/cocktail";
+
+import { Cocktail } from "~/model/cocktail";
+
+import { Cocktail } from "~/model/cocktail";
+
+import { Cocktail } from "~/model/cocktail";
 
 <template>
   <div>
@@ -50,6 +61,14 @@
       rounded="0"
       width="100%"
     ></v-btn>
+    <v-btn
+      color="red"
+      text="Supprimer"
+      variant="flat"
+      rounded="0"
+      width="100%"
+      @click="deleteCocktail(cocktail.id)"
+    ></v-btn>
   </div>
 
   </template>
@@ -93,10 +112,9 @@
 
 
 <script lang="ts" setup>
+import { type Cocktail } from "~/model/cocktail";
 
-const dialog = ref(false)
-
-
+// Fonction pour récupérer les cocktails depuis le serveur
 const fetchCocktails = async () => {
   try {
     const response = await fetch('http://localhost:8080/v1/cocktails/all');
@@ -110,26 +128,35 @@ const fetchCocktails = async () => {
   }
 };
 
-const cocktails = ref([]);
+// Fonction pour supprimer un cocktail
+const deleteCocktail = async (cocktailId: number) => {
+  try {
+    const response = await fetch(`http://localhost:8080/v1/cocktails/${cocktailId}`, {
+      method: 'DELETE'
+    });
+    if (!response.ok) {
+      throw new Error('Failed to delete cocktail');
+    }
+    // Mettre à jour la liste des cocktails après suppression
+    cocktails.value = cocktails.value.filter((cocktail: Cocktail) => cocktail.id !== cocktailId);
+    console.log('Cocktail deleted successfully');
+  } catch (error) {
+    console.error('Error deleting cocktail:', error);
+  }
+};
 
+// Déclarer une référence réactive pour stocker les cocktails
+const cocktails = ref<Array<Cocktail>>([]);
+
+// Appeler fetchCocktails lors du montage du composant
 onMounted(async () => {
   cocktails.value = await fetchCocktails();
 });
 
-const goToPanier = () => {
-  // Define your panier navigation logic here
-};
-
-const logout = () => {
-  // Define your logout logic here
-};
-
-
-
-
-
-
+// Autres fonctions et logique de composant
+// ...
 </script>
+
 
 
 <style >

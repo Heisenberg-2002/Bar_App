@@ -1,14 +1,19 @@
 <template>
   <v-container>
     <h1> Page Barmaker</h1>
-    <v-form @submit.prevent="createCocktail">
-      <v-text-field v-model="newCocktail.name" label="Name" required></v-text-field>
-      <v-text-field v-model="newCocktail.description" label="Description" required></v-text-field>
-      <v-text-field v-model="newCocktail.priceS" label="Prix Taille S" required></v-text-field>
-      <v-text-field v-model="newCocktail.priceM" label="Prix Taille M" required></v-text-field>
-      <v-text-field v-model="newCocktail.priceL" label="Prix Taille L" required></v-text-field>
-      <v-btn type="submit" color="primary">Create Cocktail</v-btn>
-    </v-form>
+    <v-form @submit.prevent="createCocktail" class="pt-5">
+      <v-text-field v-model="newCocktail.name" label="Name" variant="solo-inverted" width="600"></v-text-field>
+      <v-text-field v-model="newCocktail.description" label="Description" variant="solo-inverted" width="600" required></v-text-field>
+      <v-text-field v-model="newCocktail.priceS" label="Prix Taille S" variant="solo-inverted" width="600" required></v-text-field>
+      <v-text-field v-model="newCocktail.priceM" label="Prix Taille M" variant="solo-inverted" width="600" required></v-text-field>
+      <v-text-field v-model="newCocktail.priceL" label="Prix Taille L" variant="solo-inverted" width="600" required></v-text-field>
+        <v-btn type="submit" color="primary">Create Cocktail</v-btn>
+    </v-form> 
+    <div class="pt-4">
+      <v-btn color="pink" link to="homepageClient" >Page Client</v-btn>
+
+    </div>
+
   </v-container>
 </template>
 
@@ -38,6 +43,7 @@ export default {
         if (!response.ok) {
           throw new Error('Failed to create cocktail');
         }
+        window.location.href ="/homepageClient"
         // Optionally, handle success response
         console.log('Cocktail created successfully');
       } catch (error) {

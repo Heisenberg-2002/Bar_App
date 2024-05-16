@@ -1,5 +1,5 @@
-export interface Cocktail  {
-    cocktailId : number; 
+export type Cocktail =  {
+    id : number; 
     name: string;
     description: string;
     priceS?:number,
