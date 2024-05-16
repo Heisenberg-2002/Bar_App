@@ -1,9 +1,9 @@
 <template>
-  <v-container fluid>
-    <v-row justify="center">
-      <v-col cols="12" sm="6" md="4">
-        <v-img
-          src="C:\Users\arthu\OneDrive\Bureau\Examen-Mai-2024\Bar-App\public\Bar.svg"
+  <v-container class="centered-element" fluid>
+    <v-row justify="center" class="">
+      <v-col cols="12" sm="6" md="4" >
+        <v-img 
+          src="@/public/Bar.svg"
           width="500"
           height="400"
         />
@@ -21,10 +21,9 @@
 </template>
 
 <script lang="ts" setup>
-
 </script>
 
-<style lang="scss" scoped>
+<style>
 html,
 body {
   background-color: #d7f18e;
@@ -32,6 +31,13 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* Pour éviter la barre de défilement horizontale */
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.centered-element {
+  position: absolute; /* Position absolue par rapport au viewport */
+  top: 50%; /* Placer l'élément au milieu verticalement */
+  left: 50%; /* Placer l'élément au milieu horizontalement */
+  transform: translate(-50%, -50%); /* Centrer l'élément */
 }
 </style>
 
