@@ -5,7 +5,8 @@ interface Credentials {
 
 interface User {
     id : number,
-    username: string
+    username: string,
+    token: string
 }
 
 export const useAuth = () => {
@@ -25,10 +26,11 @@ export const useAuth = () => {
             if(!response.ok){
                 throw new Error('Erreur lors de la connexion')
             }
-            const {data} = await response.json();
-            user.value = data.user as User;
+            debugger
+            const data : User = await response.json();
+            user.value = data as User;
             localStorage.setItem('token', data.token);
-            router.push('/')
+            router.push('homepageBarmaker')
         }catch (err: any) {
             error.value = err.message
         }

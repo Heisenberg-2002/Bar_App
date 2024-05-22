@@ -1,14 +1,3 @@
-import { Cocktail } from "~/model/cocktail";
-
-import { Cocktail } from "~/model/cocktail";
-
-import { Cocktail } from "~/model/cocktail";
-
-import { Cocktail } from "~/model/cocktail";
-
-import { Cocktail } from "~/model/cocktail";
-
-import { Cocktail } from "~/model/cocktail";
 
 <template>
   <div>
@@ -26,7 +15,7 @@ import { Cocktail } from "~/model/cocktail";
 
       <v-btn text="Page d'accueil" link to="/"></v-btn>
       <!-- Déconnexion -->
-      <v-btn icon>
+      <v-btn @click="logout" icon>
         <v-icon>mdi-export</v-icon>
       </v-btn>
     </v-toolbar>
@@ -157,6 +146,19 @@ onMounted(async () => {
 
 // Autres fonctions et logique de composant
 // ...
+interface User {
+    id : number,
+    username: string,
+    token: string
+}
+
+const router = useRouter();
+const user = ref<User | null>(null);
+
+const logout = () =>{
+        user.value = null;
+        router.push('/login')
+    }
 </script>
 
 
