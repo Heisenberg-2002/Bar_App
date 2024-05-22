@@ -19,6 +19,17 @@
 
 
 <script lang="ts" setup>
+import { pushScopeId } from 'vue';
+import { useAuth } from '~/components/auth/useAuth';
+
+
+const {user} = useAuth();
+const router = useRouter();
+
+if(!user.value){
+  router.push('/login')
+}
+
 </script>
 
 <style>

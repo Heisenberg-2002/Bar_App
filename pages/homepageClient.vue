@@ -22,6 +22,7 @@ import { Cocktail } from "~/model/cocktail";
 
       <v-spacer></v-spacer>
       <v-btn variant="plain" link to="panier">Panier</v-btn>
+      
 
       <v-btn text="Page d'accueil" link to="/"></v-btn>
       <!-- Déconnexion -->
@@ -41,6 +42,7 @@ import { Cocktail } from "~/model/cocktail";
           cols="12"      
           md="3" 
           >     
+        
           <v-card rounded="0" >
 
             <v-img src="https://cdn-elle.ladmedia.fr/var/plain_site/storage/images/elle-a-table/fiches-cuisine/tous-les-themes/recettes-de-cocktail/788840-9-fre-FR/Recettes-de-cocktail.jpg">
@@ -141,7 +143,7 @@ const deleteCocktail = async (cocktailId: number) => {
     cocktails.value = cocktails.value.filter((cocktail: Cocktail) => cocktail.id !== cocktailId);
     console.log('Cocktail deleted successfully');
   } catch (error) {
-    console.error('Error deleting cocktail:', error);
+    console.error('Error deleting cocktail:', error);[]
   }
 };
 
