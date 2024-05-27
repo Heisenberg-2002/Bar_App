@@ -11,7 +11,7 @@
       <v-btn variant="plain" link to="panier">Panier</v-btn>
       
 
-      <v-btn text="Page d'accueil" link to="/"></v-btn>
+      <v-btn text="Page d'accueil" link to="homepageClient"></v-btn>
       <!-- Déconnexion -->
       <v-btn icon>
         <v-icon>mdi-export</v-icon>

@@ -1,12 +1,15 @@
 <template>
-        <h1> Login </h1>
+  <div class="d-flex align-center justify-center">
     <v-form @submit.prevent="handleLogin" class="pt-5">
+      <h3> Login </h3>
       <v-text-field v-model="username" label="Username" variant="solo-inverted" width="600" required></v-text-field>
       <v-text-field v-model="password" label="Password" variant="solo-inverted" width="600" required></v-text-field>
         <v-btn type="submit" color="primary">Login</v-btn>
-        <v-btn @click="router.push('/jdmeg')"></v-btn>
-    </v-form>
+        
       <p v-if="error">{{ error }}</p>
+
+    </v-form>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -22,7 +25,6 @@ import {useAuth} from "../components/auth/useAuth"
       login({ username: username.value, password: password.value})
     }
 
-    const router = useRouter()
 
 
 </script>

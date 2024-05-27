@@ -19,7 +19,6 @@
 
 
 <script lang="ts" setup>
-import { pushScopeId } from 'vue';
 import { useAuth } from '~/components/auth/useAuth';
 
 

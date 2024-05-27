@@ -16,7 +16,7 @@ export const useAuth = () => {
 
     const login = async (credentials : Credentials) => {
         try {
-            const response = await fetch('http://localhost:8080/v1/users/auth', {
+            const response = await fetch('http://localhost:8080/v1/auth/login', {
                 method : 'POST',
                 headers : {
                    'Content-Type' : 'application/json'
@@ -26,10 +26,8 @@ export const useAuth = () => {
             if(!response.ok){
                 throw new Error('Erreur lors de la connexion')
             }
-            debugger
-            const data : User = await response.json();
-            user.value = data as User;
-            localStorage.setItem('token', data.token);
+            const token = await response.text();
+            localStorage.setItem('token', token);
             router.push('homepageBarmaker')
         }catch (err: any) {
             error.value = err.message
