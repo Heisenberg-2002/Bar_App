@@ -108,6 +108,7 @@ import { type Cocktail } from "~/model/cocktail";
 
 
 
+
 // Fonction pour récupérer les cocktails depuis le serveur
 const fetchCocktails = async () => {
   try {
