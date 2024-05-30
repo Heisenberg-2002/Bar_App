@@ -1,30 +1,12 @@
 <template>
-   <v-toolbar height="100" class="bg-grey" prominent>
-      <v-img 
-        src="@/public/Bar.svg"
-        height="100"
-        width="200"
-      />
-      <v-title class="text-h4 text-black">Bar'App</v-title>
-
-      <v-spacer></v-spacer>
-      <v-btn variant="plain" link to="panier">Panier</v-btn>
-      
-
-      <v-btn text="Page d'accueil" link to="homepageClient"></v-btn>
-      <!-- Déconnexion -->
-      <v-btn icon>
-        <v-icon>mdi-export</v-icon>
-      </v-btn>
-    </v-toolbar>
+   <navbarComp/>
   <v-container>
     <h1> Page Barmaker</h1>
     <v-form @submit.prevent="createCocktail" class="pt-5">
       <v-text-field v-model="newCocktail.name" label="Name" variant="solo-inverted" width="600"></v-text-field>
       <v-text-field v-model="newCocktail.description" label="Description" variant="solo-inverted" width="600" required></v-text-field>
-      <v-text-field v-model="newCocktail.priceS" label="Prix Taille S" variant="solo-inverted" width="600" required></v-text-field>
-      <v-text-field v-model="newCocktail.priceM" label="Prix Taille M" variant="solo-inverted" width="600" required></v-text-field>
-      <v-text-field v-model="newCocktail.priceL" label="Prix Taille L" variant="solo-inverted" width="600" required></v-text-field>
+      <v-text-field v-model="newCocktail.price" label="Prix" variant="solo-inverted" width="600" required></v-text-field>
+     
         <v-btn type="submit" color="primary">Create Cocktail</v-btn>
     </v-form> 
     <div class="pt-4">
@@ -43,9 +25,8 @@ import { useRouter } from 'vue-router';
 const newCocktail = reactive({
   name: '',
   description: '',
-  priceS: '',
-  priceM: '',
-  priceL: ''
+  price:'',
+ 
 });
 
 // Use the router from vue-router for navigation

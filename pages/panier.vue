@@ -7,7 +7,7 @@
   <!-- Order -->
     <v-row class="d-flex flex-column">
       <v-col>
-        <v-card v-if="clickOrder">
+        <v-card>
           
         </v-card>
       </v-col>

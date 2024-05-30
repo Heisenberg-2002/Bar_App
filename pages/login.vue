@@ -13,7 +13,6 @@
 </template>
 
 <script lang="ts" setup>
-import {useAuth} from "../components/auth/useAuth"
 
 
     const username = ref('');

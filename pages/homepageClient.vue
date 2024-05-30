@@ -1,25 +1,8 @@
 
 <template>
   <div>
-    <v-toolbar height="100" class="bg-grey" prominent>
-      <v-img 
-        src="@/public/Bar.svg"
-        height="100"
-        width="200"
-      />
-      <v-title class="text-h4 text-black">Bar'App</v-title>
-
-      <v-spacer></v-spacer>
-      <v-btn variant="plain" link to="panier">Panier</v-btn>
-      
-
-      <v-btn text="Page d'accueil" link to="/"></v-btn>
-      <!-- Déconnexion -->
-      <v-btn @click="logout" icon>
-        <v-icon>mdi-export</v-icon>
-      </v-btn>
-    </v-toolbar>
-    
+   
+    <navbarComp/>
     <v-container>
       <h1>Page Client</h1>
 
@@ -70,9 +53,7 @@
       <v-card-text>
         <v-img src="https://cdn-elle.ladmedia.fr/var/plain_site/storage/images/elle-a-table/fiches-cuisine/tous-les-themes/recettes-de-cocktail/788840-9-fre-FR/Recettes-de-cocktail.jpg"></v-img>
         <p>Description: {{ cocktail.description }}</p>
-        <p>Price S: {{ cocktail.priceS }}</p>
-        <p>Price M: {{ cocktail.priceM }}</p>
-        <p>Price L: {{ cocktail.priceL }}</p>
+        <p>Prix: {{ cocktail.price }}</p>
       </v-card-text>
 
       <v-card-actions>
@@ -82,6 +63,7 @@
           text="Commander ce cocktail"
           color="green"
           variant="flat"
+          @click="createOrder"
         ></v-btn>
 
         <v-btn
@@ -103,11 +85,8 @@
 
 
 <script lang="ts" setup>
-import { type Cocktail } from "~/model/cocktail";
-
-
-
-
+import type { Cocktail } from "~/model/cocktail";
+import type { Order } from "~/model/order";
 
 // Fonction pour récupérer les cocktails depuis le serveur
 const fetchCocktails = async () => {
@@ -150,19 +129,37 @@ onMounted(async () => {
 
 // Autres fonctions et logique de composant
 // ...
-interface User {
-    id : number,
-    username: string,
-    token: string
+
+
+
+const order : Order = {};
+
+
+const createOrder = async () => {
+  order.date = undefined;
+  order.totalPrice = 12;
+  order.status = "En préparation";
+
+  try {
+    const response = await fetch(`http://localhost:8080/v1/orders`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(order)       
+    });
+    if(!response.ok){
+       throw new Error('Failed to create order')
+    } 
+    console.log(order)
+    return await response.json();
+  }catch (error){
+    console.error('Error fetching orders:', error);
+    return [];
+  }
+  
 }
 
-const router = useRouter();
-const user = ref<User | null>(null);
-
-const logout = () =>{
-        user.value = null;
-        router.push('/login')
-    }
 </script>
 
 

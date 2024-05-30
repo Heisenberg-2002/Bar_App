@@ -19,15 +19,6 @@
 
 
 <script lang="ts" setup>
-import { useAuth } from '~/components/auth/useAuth';
-
-
-const {user} = useAuth();
-const router = useRouter();
-
-if(!user.value){
-  router.push('/login')
-}
 
 </script>
 
