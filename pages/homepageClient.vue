@@ -63,7 +63,7 @@
           text="Commander ce cocktail"
           color="green"
           variant="flat"
-          @click="createOrder"
+          @click="addToBasket(cocktails)"
         ></v-btn>
 
         <v-btn
@@ -85,8 +85,15 @@
 
 
 <script lang="ts" setup>
+import useBasket from "~/composables/useBasket";
 import type { Cocktail } from "~/model/cocktail";
 import type { Order } from "~/model/order";
+
+
+const { addToBasket} = useBasket();
+
+
+const router = useRouter();
 
 // Fonction pour récupérer les cocktails depuis le serveur
 const fetchCocktails = async () => {
@@ -136,28 +143,28 @@ const order : Order = {};
 
 
 const createOrder = async () => {
-  order.date = undefined;
+  order.date = new Date();
   order.totalPrice = 12;
   order.status = "En préparation";
 
   try {
-    const response = await fetch(`http://localhost:8080/v1/orders`, {
+    const response = await fetch("http://localhost:8080/v1/orders", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(order)       
+      body : JSON.stringify(order)
     });
     if(!response.ok){
        throw new Error('Failed to create order')
     } 
+    router.push('/order');
     console.log(order)
     return await response.json();
   }catch (error){
     console.error('Error fetching orders:', error);
     return [];
   }
-  
 }
 
 </script>

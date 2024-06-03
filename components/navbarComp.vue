@@ -9,6 +9,7 @@
 
     <v-spacer></v-spacer>
     <v-btn variant="plain" link to="panier">Panier</v-btn>
+    <p> ({{ countBasketItems }})</p>
     
 
     <v-btn text="Page d'accueil" link to="/"></v-btn>
@@ -23,6 +24,8 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+
+const {countBasketItems} = useBasket(); 
 
 interface User {
     id : number,
