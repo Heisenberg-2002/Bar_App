@@ -45,9 +45,6 @@ import type { Order } from '~/model/order';
 
 
 
-const removeFromCart = (index: number) => {
-  orders.value.splice(index, 1)
-}
 
 const fetchCocktails = async () => {
   try {

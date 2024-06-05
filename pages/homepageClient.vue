@@ -60,15 +60,15 @@
         <v-spacer></v-spacer>
 
         <v-btn
-          text="Commander ce cocktail"
+          text="Ajouter au panier"
           color="green"
           variant="flat"
-          @click="addToBasket(cocktails)"
+          @click="addToBasket(cocktail)"
         ></v-btn>
 
         <v-btn
           text="Close Dialog"
-          @click="isActive.value = false"
+          @click="transformBasket"
         ></v-btn>
       </v-card-actions>
     </v-card>
@@ -87,10 +87,9 @@
 <script lang="ts" setup>
 import useBasket from "~/composables/useBasket";
 import type { Cocktail } from "~/model/cocktail";
-import type { Order } from "~/model/order";
 
 
-const { addToBasket} = useBasket();
+const { addToBasket , transformBasket} = useBasket();
 
 
 const router = useRouter();
@@ -139,33 +138,6 @@ onMounted(async () => {
 
 
 
-const order : Order = {};
-
-
-const createOrder = async () => {
-  order.date = new Date();
-  order.totalPrice = 12;
-  order.status = "En préparation";
-
-  try {
-    const response = await fetch("http://localhost:8080/v1/orders", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body : JSON.stringify(order)
-    });
-    if(!response.ok){
-       throw new Error('Failed to create order')
-    } 
-    router.push('/order');
-    console.log(order)
-    return await response.json();
-  }catch (error){
-    console.error('Error fetching orders:', error);
-    return [];
-  }
-}
 
 </script>
 

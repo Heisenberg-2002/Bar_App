@@ -1,8 +1,6 @@
 export type Order = {
-    id : number,
-    orderId : number,
-    cocktailId : number,
-    date? : Date,
+    id? : number,
+    date : Date,
     totalPrice?: number,
     status?: string,
   }

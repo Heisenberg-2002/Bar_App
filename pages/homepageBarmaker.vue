@@ -6,14 +6,11 @@
       <v-text-field v-model="newCocktail.name" label="Name" variant="solo-inverted" width="600"></v-text-field>
       <v-text-field v-model="newCocktail.description" label="Description" variant="solo-inverted" width="600" required></v-text-field>
       <v-text-field v-model="newCocktail.price" label="Prix" variant="solo-inverted" width="600" required></v-text-field>
-     
-        <v-btn type="submit" color="primary">Create Cocktail</v-btn>
+      <v-btn type="submit" color="primary">Create Cocktail</v-btn>
     </v-form> 
     <div class="pt-4">
       <v-btn color="pink" link to="homepageClient" >Page Client</v-btn>
-
     </div>
-
   </v-container>
 </template>
 
