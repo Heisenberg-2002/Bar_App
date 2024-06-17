@@ -35,6 +35,7 @@
                     text="Commander"
                     color="green"
                     variant="flat"
+                    @click="transformBasket()"
                    >
                   </v-btn>
                 </v-col>
@@ -48,13 +49,12 @@
   </template>
   
   <script lang="ts" setup>
-import Order from './order.vue';
 
 
   const router = useRouter();
 
 
-  const { basketItems } = useBasket();
+  const { basketItems, transformBasket } = useBasket();
 
   const removeFromCart = (index: number) => {
   basketItems.value.splice(index, 1)

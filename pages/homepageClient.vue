@@ -1,8 +1,6 @@
-
 <template>
   <div>
-   
-    <navbarComp/>
+    <navbarComp />
     <v-container>
       <h1>Page Client</h1>
 
@@ -11,69 +9,66 @@
         <v-col
           v-for="cocktail in cocktails"
           :key="cocktail.id"
-          cols="12"      
-          md="3" 
-          >     
-        
-          <v-card rounded="0" >
-
-            <v-img src="https://cdn-elle.ladmedia.fr/var/plain_site/storage/images/elle-a-table/fiches-cuisine/tous-les-themes/recettes-de-cocktail/788840-9-fre-FR/Recettes-de-cocktail.jpg">
-             
-              <v-card-title  class=" text-white text-h6">{{ cocktail.name }}</v-card-title>
-
+          cols="12"
+          md="3"
+        >
+          <v-card rounded="0">
+            <v-img
+              src="https://cdn-elle.ladmedia.fr/var/plain_site/storage/images/elle-a-table/fiches-cuisine/tous-les-themes/recettes-de-cocktail/788840-9-fre-FR/Recettes-de-cocktail.jpg"
+            >
+              <v-card-title class="text-white text-h6">{{
+                cocktail.name
+              }}</v-card-title>
             </v-img>
 
-    
-  <v-dialog max-width="500">
-  <template v-slot:activator="{ props: activatorProps }">
-    <div class="text-center">
-      <v-btn
-      v-bind="activatorProps"
-      color="green"
-      text="Commander"
-      variant="flat"
-      rounded="0"
-      width="100%"
-    ></v-btn>
-    <v-btn
-      color="red"
-      text="Supprimer"
-      variant="flat"
-      rounded="0"
-      width="100%"
-      @click="deleteCocktail(cocktail.id)"
-    ></v-btn>
-  </div>
+            <v-dialog max-width="500">
+              <template v-slot:activator="{ props: activatorProps }">
+                <div class="text-center">
+                  <v-btn
+                    v-bind="activatorProps"
+                    color="green"
+                    text="Commander"
+                    variant="flat"
+                    rounded="0"
+                    width="100%"
+                  ></v-btn>
+                  <v-btn
+                    color="red"
+                    text="Supprimer"
+                    variant="flat"
+                    rounded="0"
+                    width="100%"
+                    @click="deleteCocktail(cocktail.id)"
+                  ></v-btn>
+                </div>
+              </template>
 
-  </template>
+              <template v-slot:default="{ isActive }">
+                <v-card>
+                  <v-card-title>{{ cocktail.name }}</v-card-title>
+                  <v-card-text>
+                    <v-img
+                      src="https://cdn-elle.ladmedia.fr/var/plain_site/storage/images/elle-a-table/fiches-cuisine/tous-les-themes/recettes-de-cocktail/788840-9-fre-FR/Recettes-de-cocktail.jpg"
+                    ></v-img>
+                    <p>Description: {{ cocktail.description }}</p>
+                    <p>Prix: {{ cocktail.price }}</p>
+                  </v-card-text>
 
-  <template v-slot:default="{ isActive }">
-    <v-card>
-      <v-card-title>{{ cocktail.name }}</v-card-title>
-      <v-card-text>
-        <v-img src="https://cdn-elle.ladmedia.fr/var/plain_site/storage/images/elle-a-table/fiches-cuisine/tous-les-themes/recettes-de-cocktail/788840-9-fre-FR/Recettes-de-cocktail.jpg"></v-img>
-        <p>Description: {{ cocktail.description }}</p>
-        <p>Prix: {{ cocktail.price }}</p>
-      </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
 
-      <v-card-actions>
-        <v-spacer></v-spacer>
+                    <v-btn
+                      text="Ajouter au panier"
+                      color="green"
+                      variant="flat"
+                      @click="addToBasket(cocktail)"
+                    ></v-btn>
 
-        <v-btn
-          text="Ajouter au panier"
-          color="green"
-          variant="flat"
-          @click="addToBasket(cocktail)"
-        ></v-btn>
-
-        <v-btn
-          text="Close Dialog"
-          @click="transformBasket"
-        ></v-btn>
-      </v-card-actions>
-    </v-card>
-  </template>
-</v-dialog>
+                    <v-btn text="Close" @click="isActive.value = false"></v-btn>
+                  </v-card-actions>
+                </v-card>
+              </template>
+            </v-dialog>
             <!-- Insérez ici le contenu de votre carte -->
           </v-card>
         </v-col>
@@ -82,28 +77,26 @@
   </div>
 </template>
 
-
-
 <script lang="ts" setup>
 import useBasket from "~/composables/useBasket";
 import type { Cocktail } from "~/model/cocktail";
 
+const { addToBasket, transformBasket } = useBasket();
 
-const { addToBasket , transformBasket} = useBasket();
-
+const dialog = ref("false");
 
 const router = useRouter();
 
 // Fonction pour récupérer les cocktails depuis le serveur
 const fetchCocktails = async () => {
   try {
-    const response = await fetch('http://localhost:8080/v1/cocktails/all');
+    const response = await fetch("http://localhost:8080/v1/cocktails/all");
     if (!response.ok) {
-      throw new Error('Failed to fetch cocktails');
+      throw new Error("Failed to fetch cocktails");
     }
     return await response.json();
   } catch (error) {
-    console.error('Error fetching cocktails:', error);
+    console.error("Error fetching cocktails:", error);
     return [];
   }
 };
@@ -111,17 +104,23 @@ const fetchCocktails = async () => {
 // Fonction pour supprimer un cocktail
 const deleteCocktail = async (cocktailId: number) => {
   try {
-    const response = await fetch(`http://localhost:8080/v1/cocktails/${cocktailId}`, {
-      method: 'DELETE'
-    });
+    const response = await fetch(
+      `http://localhost:8080/v1/cocktails/${cocktailId}`,
+      {
+        method: "DELETE",
+      }
+    );
     if (!response.ok) {
-      throw new Error('Failed to delete cocktail');
+      throw new Error("Failed to delete cocktail");
     }
     // Mettre à jour la liste des cocktails après suppression
-    cocktails.value = cocktails.value.filter((cocktail: Cocktail) => cocktail.id !== cocktailId);
-    console.log('Cocktail deleted successfully');
+    cocktails.value = cocktails.value.filter(
+      (cocktail: Cocktail) => cocktail.id !== cocktailId
+    );
+    console.log("Cocktail deleted successfully");
   } catch (error) {
-    console.error('Error deleting cocktail:', error);[]
+    console.error("Error deleting cocktail:", error);
+    [];
   }
 };
 
@@ -135,15 +134,9 @@ onMounted(async () => {
 
 // Autres fonctions et logique de composant
 // ...
-
-
-
-
 </script>
 
-
-
-<style >
+<style>
 .text-container {
   position: relative;
   padding: 20px;
